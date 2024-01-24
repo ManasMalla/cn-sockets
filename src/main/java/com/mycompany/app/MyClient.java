@@ -17,12 +17,15 @@ class MyClient{
             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
             Scanner scanner= new Scanner(System.in);
             String response = dis.readUTF();
-            while(response != "bye"){
-                System.out.println(response);
+            while(!response.contains("bye")){
+                System.out.println("Server: " + response);
+                System.out.print("> ");
                 String request = scanner.nextLine();
                 dos.writeUTF(request);
                 response = dis.readUTF();
             }
+            dos.writeUTF("bye");
+            System.out.println("Connection closed");
         }catch(IOException e){
             System.out.println("I/O Error: " + e.getMessage());
         }catch(SecurityException e){

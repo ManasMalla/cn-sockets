@@ -19,15 +19,17 @@ class MyServer{
            
             Scanner scanner= new Scanner(System.in);
             dos.writeUTF("Connection established");
-            String response = dis.readUTF();
-            while(response != "bye"){
-                System.out.println(response);
+            String response = (String)dis.readUTF();
+            while(!response.contains("bye")){
+                System.out.println("Client: " + response);
+                System.out.print("> ");
                 String request = scanner.nextLine();
                 dos.writeUTF(request);
-                response = dis.readUTF();
+                response = (String)dis.readUTF();
             }
             dos.writeUTF("bye");
-            // ss.close();
+            System.out.println("Connection closed");
+            ss.close();
         }catch(IOException e){
             System.out.println("I/O Error: " + e.getMessage());
         }catch(SecurityException e){
